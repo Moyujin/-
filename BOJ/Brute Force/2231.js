@@ -1,26 +1,24 @@
 const fs = require('fs');
 const filePath = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
-let stdin = fs.readFileSync(filePath).toString().trim().split('\n');
+let stdin = fs.readFileSync(filePath).toString().trim();
 
 const solution = () => {
-  const N = Number(stdin[0]);
-  let res, num;
-  let check = false;
+  const N = Number(stdin);
+  // 각 자릿수를 더해서 N이 나오기 떄문에
+  // 각 자릿수를 9로 가정한다면
+  // 그 이전의 값은 확인할 필요가 없어짐
+  const start = N - stdin.length * 9;
+  let res = 0;
 
-  for (let i = 0; i <= N; i++) {
-    res = num = i;
-    while (num > 0) {
-      res += Math.floor(num % 10);
-      num /= 10;
-    }
-    if (res === N) {
-      console.log(i);
-      check = true;
+  for (let i = start; i <= N; i++) {
+    const [...number] = i.toString();
+    if (number.reduce((acc, curr) => acc + Number(curr), 0) + i === N) {
+      res = i;
       break;
     }
   }
 
-  if (!check) console.log(0);
+  console.log(res);
 };
 
 solution();
