@@ -12,7 +12,15 @@ const solution = () => {
     arr.push(num);
   }
 
-  console.log(arr);
+  for (let i = arr.length; i >= 0; i--) {
+    let num = i * i;
+    let len = num * i;
+    console.log(num, len);
+    for (let j = 0; j < arr[i]; j++) {
+      if (num <= length && num <= width && num <= height) {
+      }
+    }
+  }
 };
 
 console.log(solution());
