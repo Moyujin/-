@@ -2,8 +2,24 @@ const fs = require('fs');
 const filePath = process.platform === 'linux' ? '/dev/stdin' : './input.txt';
 let stdin = fs.readFileSync(filePath).toString().trim().split('\n');
 
-const BFS = graph => {
+const BFS = (graph, N) => {
   const queue = [];
+  const visited = Array(N + 1).fill(false);
+  const arr = [];
+
+  queue.push(1);
+  while (queue.length) {
+    let node = queue.shift();
+    if (visited[node]) continue;
+    visited[node] = true;
+
+    for (let child of graph[node]) {
+      if (visited[child]) continue;
+      queue.push(child);
+      arr[child] = node;
+    }
+  }
+  return arr.slice(2).join('\n');
 };
 
 const solution = () => {
@@ -15,7 +31,7 @@ const solution = () => {
     graph[N].push(M);
     graph[M].push(N);
   }
-  BFS();
+  return BFS(graph, N);
 };
 
 console.log(solution());
