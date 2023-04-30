@@ -6,11 +6,9 @@ const solution = () => {
   const [N, M] = stdin.shift().split(' ').map(Number);
   const num = stdin.shift().split(' ').map(Number);
   const sum = Array(N + 1).fill(0);
-  num.reduce((acc, curr, index) => {
-    const num = acc + curr;
-    sum[index + 1] = num;
-    return num;
-  }, 0);
+  num.forEach((item, index) => {
+    sum[index + 1] = sum[index] + item;
+  });
   const res = [];
 
   stdin.forEach(item => {
