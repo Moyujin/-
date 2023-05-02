@@ -8,7 +8,7 @@ let res = 1;
 
 const DFS = (y, x, R, C, arr, visited, check, cnt) => {
   res = Math.max(res, cnt);
-  let idx = arr[y][x].charCodeAt(0) - 65;
+  let idx = arr[y][x];
   check[idx] = true;
   visited[y][x] = true;
 
@@ -17,8 +17,7 @@ const DFS = (y, x, R, C, arr, visited, check, cnt) => {
     let fx = x + dx[i];
 
     if (fy < 0 || fx < 0 || fy >= R || fx >= C || visited[fy][fx]) continue;
-    if (!check[arr[fy][fx].charCodeAt(0) - 65])
-      DFS(fy, fx, R, C, arr, visited, check, cnt + 1);
+    if (!check[arr[fy][fx]]) DFS(fy, fx, R, C, arr, visited, check, cnt + 1);
   }
 
   check[idx] = false;
@@ -27,7 +26,9 @@ const DFS = (y, x, R, C, arr, visited, check, cnt) => {
 
 const solution = () => {
   const [R, C] = stdin[0].split(' ').map(Number);
-  const arr = stdin.slice(1).map(item => item.split(''));
+  const arr = stdin
+    .slice(1)
+    .map(items => items.split('').map(item => item.charCodeAt() - 65));
   const visited = Array.from({ length: R }, () => new Array(C));
   const check = Array(26).fill(false);
 
